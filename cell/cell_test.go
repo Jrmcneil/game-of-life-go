@@ -2,6 +2,7 @@ package cell
 
 import (
     "testing"
+    "math/rand"
 )
 
 func TestCellCanBeAlive(t *testing.T) {
@@ -30,27 +31,17 @@ func TestCellHasNoNeighborByDefault(t *testing.T) {
     }
 }
 
-func TestCellCanHaveANeighbor(t *testing.T) {
+func TestCellCanHaveNeighbors(t *testing.T) {
     cell := NewCell()
-    neighbor := NewCell()
-
-    cell.AddNeighbor(&neighbor)
-
-    if cell.neighbors[0] != &neighbor {
-        t.Errorf("Cell should have neighbor")
+    var neighborCount int
+    for i := 0; i < rand.Intn(10);  i++ {
+        neighborCount = i + 1
+        neighbor :=NewCell()
+        cell.AddNeighbor(&neighbor)
     }
-}
 
-func TestCellCanHaveTwoNeighbors(t *testing.T) {
-    cell := NewCell()
-    neighbor := NewCell()
-    secondNeighbor := NewCell()
-
-    cell.AddNeighbor(&neighbor)
-    cell.AddNeighbor(&secondNeighbor)
-
-    if cell.neighbors[0] != &neighbor || cell.neighbors[1] != &secondNeighbor {
-        t.Errorf("Cell should have 2 neighbors")
+    if len(cell.neighbors) != neighborCount  {
+        t.Errorf("Cell should have %d neighbors but has %d", neighborCount, len(cell.neighbors))
     }
 }
 
