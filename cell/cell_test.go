@@ -43,5 +43,20 @@ func TestCellCanHaveOneNeighbor(t *testing.T) {
     }
 }
 
+func TestCellCanHaveTwoNeighbors(t *testing.T) {
+    cell := NewCell()
+    neighbor := NewCell()
+    otherNeighbor := NewCell()
+
+    cell.AddNeighbor(&neighbor)
+    cell.AddNeighbor(&otherNeighbor)
+
+    neighbors := len(cell.neighbors)
+
+    if neighbors != 2 {
+        t.Errorf("Cell should have 2 neighbor but has %d", neighbors)
+    }
+}
+
 
 
