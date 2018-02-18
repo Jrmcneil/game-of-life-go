@@ -20,5 +20,13 @@ func TestCellIsNotAliveByDefault(t *testing.T) {
     }
 }
 
+func TestCellHasNoNeighborsByDefault(t *testing.T) {
+    cell := NewCell()
+
+    if len(cell.neighbors) != 0 {
+        t.Errorf("Cell should have no neighbors by default")
+    }
+}
+
 
 
