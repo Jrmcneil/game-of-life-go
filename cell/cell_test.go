@@ -1,6 +1,8 @@
 package cell
 
-import "testing"
+import (
+    "testing"
+)
 
 func TestCellCanBeAlive(t *testing.T) {
 	cell := NewCell()
@@ -25,6 +27,19 @@ func TestCellHasNoNeighborsByDefault(t *testing.T) {
 
     if len(cell.neighbors) != 0 {
         t.Errorf("Cell should have no neighbors by default")
+    }
+}
+
+func TestCellCanHaveOneNeighbor(t *testing.T) {
+    cell := NewCell()
+    neighbor := NewCell()
+
+    cell.AddNeighbor(&neighbor)
+
+    neighbors := len(cell.neighbors)
+
+    if neighbors != 1 {
+        t.Errorf("Cell should have 1 neighbor but has %d", neighbors)
     }
 }
 
