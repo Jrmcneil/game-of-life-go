@@ -2,7 +2,7 @@ package cell
 
 type Cell struct {
 	IsAlive bool
-	neighbors []*Cell
+	neighbors [1]*Cell
 }
 
 func (cell *Cell) resurrect() {
@@ -10,10 +10,10 @@ func (cell *Cell) resurrect() {
 }
 
 func (cell *Cell) AddNeighbor(neighbor *Cell) {
-    cell.neighbors = append(cell.neighbors, neighbor)
+    cell.neighbors[0] = neighbor
 }
 
 func NewCell() Cell {
-	return Cell{false, make([]*Cell, 0)}
+	return Cell{false, [1]*Cell {}}
 }
 

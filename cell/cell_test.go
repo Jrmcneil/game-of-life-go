@@ -22,41 +22,25 @@ func TestCellIsNotAliveByDefault(t *testing.T) {
     }
 }
 
-func TestCellHasNoNeighborsByDefault(t *testing.T) {
+func TestCellHasNoNeighborByDefault(t *testing.T) {
     cell := NewCell()
 
-    if len(cell.neighbors) != 0 {
+    if cell.neighbors[0] != nil {
         t.Errorf("Cell should have no neighbors by default")
     }
 }
 
-func TestCellCanHaveOneNeighbor(t *testing.T) {
+func TestCellCanHaveANeighbor(t *testing.T) {
     cell := NewCell()
     neighbor := NewCell()
 
     cell.AddNeighbor(&neighbor)
 
-    neighbors := len(cell.neighbors)
-
-    if neighbors != 1 {
-        t.Errorf("Cell should have 1 neighbor but has %d", neighbors)
+    if cell.neighbors[0] != &neighbor {
+        t.Errorf("Cell should have neighbor")
     }
 }
 
-func TestCellCanHaveTwoNeighbors(t *testing.T) {
-    cell := NewCell()
-    neighbor := NewCell()
-    otherNeighbor := NewCell()
-
-    cell.AddNeighbor(&neighbor)
-    cell.AddNeighbor(&otherNeighbor)
-
-    neighbors := len(cell.neighbors)
-
-    if neighbors != 2 {
-        t.Errorf("Cell should have 2 neighbor but has %d", neighbors)
-    }
-}
 
 
 
