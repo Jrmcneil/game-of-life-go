@@ -13,6 +13,20 @@ func (cell *Cell) AddNeighbor(neighbor *Cell) {
     cell.neighbors = append(cell.neighbors, neighbor)
 }
 
+func (cell *Cell) Live() {
+    var liveNeighbors int
+
+    for _, c := range cell.neighbors {
+        if c.IsAlive {
+            liveNeighbors++
+        }
+    }
+
+    if liveNeighbors == 0 {
+        cell.IsAlive = false
+    }
+}
+
 func NewCell() Cell {
 	return Cell{false, []*Cell {}}
 }

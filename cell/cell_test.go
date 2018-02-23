@@ -45,6 +45,19 @@ func TestCellCanHaveNeighbors(t *testing.T) {
     }
 }
 
+func TestCellWithNoLiveNeighborDies(t *testing.T) {
+    cell := NewCell()
+    cell.resurrect()
+    neighbor := NewCell()
+    cell.AddNeighbor(&neighbor)
+
+    cell.Live()
+
+    if cell.IsAlive != false {
+        t.Errorf("Cell has 0 neighbor so should be dead")
+    }
+}
+
 
 
 
