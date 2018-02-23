@@ -22,7 +22,7 @@ func (cell *Cell) Live() {
         }
     }
 
-    if liveNeighbors <= 1 {
+    if liveNeighbors <= 1 || liveNeighbors > 3 {
         cell.IsAlive = false
     }
 }

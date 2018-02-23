@@ -109,6 +109,24 @@ func TestLiveCellWithThreeLiveNeighborsLives(t *testing.T) {
     }
 }
 
+func TestLiveCellWithFourLiveNeighborsDies(t *testing.T) {
+    cell := NewCell()
+    cell.resurrect()
+    var neighborCount int
+    for i := 0; i < 4;  i++ {
+        neighborCount = i + 1
+        neighbor :=NewCell()
+        cell.AddNeighbor(&neighbor)
+        neighbor.resurrect()
+    }
+
+    cell.Live()
+
+    if cell.IsAlive != false {
+        t.Errorf("Live cell has %d neighbors so should be dead", neighborCount)
+    }
+}
+
 
 
 
