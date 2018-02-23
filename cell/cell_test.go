@@ -130,6 +130,16 @@ func TestLiveCellWithFourLiveNeighborsDies(t *testing.T) {
 
 func TestLiveCellWithMoreThanThreeLiveNeighborsDies(t *testing.T) {}
 
+func TestDeadCellWithNoLiveNeighborsStaysDead(t *testing.T) {}
+
+func TestDeadCellWithOneLiveNeighborStaysDead(t *testing.T) {}
+
+func TestDeadCellWithTwoLiveNeighborsStaysDead(t *testing.T) {}
+
+func TestDeadCellWithThreeLiveNeighborsResurrects(t *testing.T) {}
+
+func TestDeadCellWithMoreThanThreeLiveNeighborsStaysDead(t *testing.T) {}
+
 
 
 
