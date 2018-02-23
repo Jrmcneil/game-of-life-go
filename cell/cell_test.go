@@ -58,6 +58,20 @@ func TestCellWithNoLiveNeighborDies(t *testing.T) {
     }
 }
 
+func TestCellWithOneLiveNeighborDies(t *testing.T) {
+    cell := NewCell()
+    cell.resurrect()
+    neighbor := NewCell()
+    cell.AddNeighbor(&neighbor)
+    neighbor.resurrect()
+
+    cell.Live()
+
+    if cell.IsAlive != false {
+        t.Errorf("Cell has 1 neighbor so should be dead")
+    }
+}
+
 
 
 
