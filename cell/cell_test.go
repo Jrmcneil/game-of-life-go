@@ -45,7 +45,7 @@ func TestCellCanHaveNeighbors(t *testing.T) {
     }
 }
 
-func TestCellWithNoLiveNeighborDies(t *testing.T) {
+func TestLiveCellWithNoLiveNeighborDies(t *testing.T) {
     cell := NewCell()
     cell.resurrect()
     neighbor := NewCell()
@@ -54,11 +54,11 @@ func TestCellWithNoLiveNeighborDies(t *testing.T) {
     cell.Live()
 
     if cell.IsAlive != false {
-        t.Errorf("Cell has 0 neighbor so should be dead")
+        t.Errorf("Live cell has 0 neighbor so should be dead")
     }
 }
 
-func TestCellWithOneLiveNeighborDies(t *testing.T) {
+func TestLiveCellWithOneLiveNeighborDies(t *testing.T) {
     cell := NewCell()
     cell.resurrect()
     neighbor := NewCell()
@@ -68,7 +68,24 @@ func TestCellWithOneLiveNeighborDies(t *testing.T) {
     cell.Live()
 
     if cell.IsAlive != false {
-        t.Errorf("Cell has 1 neighbor so should be dead")
+        t.Errorf("Live cell has 1 neighbor so should be dead")
+    }
+}
+
+func TestLiveCellWithTwoLiveNeighborsLives(t *testing.T) {
+    cell := NewCell()
+    cell.resurrect()
+    neighbor1 := NewCell()
+    neighbor2 := NewCell()
+    cell.AddNeighbor(&neighbor1)
+    cell.AddNeighbor(&neighbor2)
+    neighbor1.resurrect()
+    neighbor2.resurrect()
+
+    cell.Live()
+
+    if cell.IsAlive != true {
+        t.Errorf("Live cell has 2 neighbor so should be alive")
     }
 }
 
