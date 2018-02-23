@@ -89,6 +89,26 @@ func TestLiveCellWithTwoLiveNeighborsLives(t *testing.T) {
     }
 }
 
+func TestLiveCellWithThreeLiveNeighborsLives(t *testing.T) {
+    cell := NewCell()
+    cell.resurrect()
+    neighbor1 := NewCell()
+    neighbor2 := NewCell()
+    neighbor3 := NewCell()
+    cell.AddNeighbor(&neighbor1)
+    cell.AddNeighbor(&neighbor2)
+    cell.AddNeighbor(&neighbor3)
+    neighbor1.resurrect()
+    neighbor2.resurrect()
+    neighbor3.resurrect()
+
+    cell.Live()
+
+    if cell.IsAlive != true {
+        t.Errorf("Live cell has 3 neighbor so should be alive")
+    }
+}
+
 
 
 
