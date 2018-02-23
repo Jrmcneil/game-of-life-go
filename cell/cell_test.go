@@ -130,7 +130,17 @@ func TestLiveCellWithFourLiveNeighborsDies(t *testing.T) {
 
 func TestLiveCellWithMoreThanThreeLiveNeighborsDies(t *testing.T) {}
 
-func TestDeadCellWithNoLiveNeighborsStaysDead(t *testing.T) {}
+func TestDeadCellWithNoLiveNeighborsStaysDead(t *testing.T) {
+    cell := NewCell()
+    neighbor := NewCell()
+    cell.AddNeighbor(&neighbor)
+
+    cell.Live()
+
+    if cell.IsAlive != false {
+        t.Errorf("Dead cell has 0 neighbor so should be dead")
+    }
+}
 
 func TestDeadCellWithOneLiveNeighborStaysDead(t *testing.T) {}
 
