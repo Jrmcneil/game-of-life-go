@@ -22,8 +22,12 @@ func (cell *Cell) Live() {
         }
     }
 
-    if liveNeighbors <= 1 || liveNeighbors > 3 {
+    if cell.IsAlive && (liveNeighbors <= 1 || liveNeighbors > 3) {
         cell.IsAlive = false
+    }
+
+    if cell.IsAlive == false && liveNeighbors == 3 {
+        cell.resurrect()
     }
 }
 

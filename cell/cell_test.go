@@ -167,11 +167,28 @@ func TestDeadCellWithTwoLiveNeighborsStaysDead(t *testing.T) {
     cell.Live()
 
     if cell.IsAlive != false {
-        t.Errorf("Dead cell has 2 neighbor so should be dead")
+        t.Errorf("Dead cell has 2 live neighbor so should be dead")
     }
 }
 
-func TestDeadCellWithThreeLiveNeighborsResurrects(t *testing.T) {}
+func TestDeadCellWithThreeLiveNeighborsResurrects(t *testing.T) {
+    cell := NewCell()
+    neighbor1 := NewCell()
+    neighbor2 := NewCell()
+    neighbor3 := NewCell()
+    cell.AddNeighbor(&neighbor1)
+    cell.AddNeighbor(&neighbor2)
+    cell.AddNeighbor(&neighbor3)
+    neighbor1.resurrect()
+    neighbor2.resurrect()
+    neighbor3.resurrect()
+
+    cell.Live()
+
+    if cell.IsAlive != true {
+        t.Errorf("Dead cell has 3 neighbor so should resurrect")
+    }
+}
 
 func TestDeadCellWithMoreThanThreeLiveNeighborsStaysDead(t *testing.T) {}
 
