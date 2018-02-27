@@ -2,7 +2,7 @@
 
 ##Description
 
-Conway's Game of Life in Go. Exercise in writing tested Go. And maybe concurrency... we'll see
+Conway's Game of Life in Go. Exercise in writing tested Go. And maybe concurrency... we'll see. Modelled after an exercise done at a Global Day of Code Retreat a few years ago. Commits are pedantic by design. 
 
 ##Rules of the game
 
