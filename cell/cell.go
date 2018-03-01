@@ -14,6 +14,16 @@ func (cell *Cell) AddNeighbor(neighbor *Cell) {
     neighbor.neighbors = append(neighbor.neighbors, cell)
 }
 
+func (cell *Cell) HasNeighbor(neighbor *Cell) bool {
+    for i := range cell.neighbors {
+        if cell.neighbors[i] == neighbor {
+            return true
+        }
+    }
+
+    return false
+}
+
 func (cell *Cell) Live() {
     var liveNeighbors int
 

@@ -54,6 +54,28 @@ func TestCellNeighborHasCellAsNeighbor(t *testing.T) {
     }
 }
 
+func TestCellsAreNotNeighborsByDefault(t *testing.T) {
+    cell := NewCell()
+    neighbor :=NewCell()
+
+    if cell.HasNeighbor(&neighbor) != false && neighbor.HasNeighbor(&cell) != false {
+        t.Errorf("Cells should not be neighbors unless added")
+    }
+}
+
+func TestCellCanIdentifyANeighbor(t *testing.T) {
+    cell := NewCell()
+    neighbor :=NewCell()
+    pointer := &neighbor
+    cell.AddNeighbor(pointer)
+
+    if cell.HasNeighbor(&neighbor) != true && neighbor.HasNeighbor(&cell) != true {
+        t.Errorf("Cells should be neighbors if added")
+    }
+
+}
+
+
 func TestLiveCellWithNoLiveNeighborDies(t *testing.T) {
     helper(t, 0, true, false)
 }
