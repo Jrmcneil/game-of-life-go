@@ -13,16 +13,31 @@ func TestGridIsEmptyByDefault(t *testing.T) {
     }
 }
 
-func TestCellCountIncreasesByAddingACell(t *testing.T) {
+func TestCellCountIncreasesByOneByAddingACell(t *testing.T) {
     grid := Grid{}
-    cell := cell.NewCell()
+    newCell := cell.NewCell()
 
-    grid.AddCell(&cell)
+    grid.AddCell(&newCell)
 
     if grid.CellCount() != 1 {
         t.Errorf("Grid cell count should increase by one")
     }
 }
+
+func TestCellCountIncreasesByTwoByAddingTwoCells(t *testing.T) {
+    grid := Grid{}
+    newCell := cell.NewCell()
+    newCell2 := cell.NewCell()
+
+    grid.AddCell(&newCell)
+    grid.AddCell(&newCell2)
+
+    if grid.CellCount() != 2 {
+        t.Errorf("Grid cell count should increase by two")
+    }
+}
+
+func TestSeedingAGridWithCellsAssignsTheirNeighbors(t *testing.T) {}
 
 
 

@@ -11,7 +11,7 @@ func (grid *Grid) CellCount() int {
 }
 
 func (grid *Grid) AddCell(cell *cell.Cell) {
-    grid.cells = 1
+    grid.cells++
 }
 
 
