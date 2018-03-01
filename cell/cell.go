@@ -11,6 +11,7 @@ func (cell *Cell) resurrect() {
 
 func (cell *Cell) AddNeighbor(neighbor *Cell) {
     cell.neighbors = append(cell.neighbors, neighbor)
+    neighbor.neighbors = append(neighbor.neighbors, cell)
 }
 
 func (cell *Cell) Live() {

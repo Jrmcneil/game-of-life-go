@@ -3,7 +3,6 @@ package cell
 import (
     "testing"
     "math/rand"
-    "fmt"
 )
 
 func TestCellCanBeAlive(t *testing.T) {
@@ -40,9 +39,18 @@ func TestCellCanHaveNeighbors(t *testing.T) {
         neighbor :=NewCell()
         cell.AddNeighbor(&neighbor)
     }
-    fmt.Println(neighborCount)
     if len(cell.neighbors) != neighborCount  {
         t.Errorf("Cell should have %d neighbors but has %d", neighborCount, len(cell.neighbors))
+    }
+}
+
+func TestCellNeighborHasCellAsNeighbor(t *testing.T) {
+    cell := NewCell()
+    neighbor :=NewCell()
+    cell.AddNeighbor(&neighbor)
+
+    if len(neighbor.neighbors) != 1  {
+        t.Errorf("Neighbor should have one neighbor if cell adds it as a neighbor")
     }
 }
 
