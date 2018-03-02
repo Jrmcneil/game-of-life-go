@@ -24,6 +24,28 @@ func TestAddingACellPutsItOnTheSurface(t *testing.T) {
     }
 }
 
+func TestCellsAreAddedAcrossThenDownTheSurface(t *testing.T) {
+    newcell1 := cell.NewCell()
+    newcell2 := cell.NewCell()
+    newcell3 := cell.NewCell()
+    newcell4 := cell.NewCell()
+    newgrid := NewGrid(2,2)
+
+    newgrid.AddCell(&newcell1)
+    newgrid.AddCell(&newcell2)
+    newgrid.AddCell(&newcell3)
+    newgrid.AddCell(&newcell4)
+
+    pos1 := newgrid.Surface[0][0] != &newcell1
+    pos2 := newgrid.Surface[1][0] != &newcell2
+    pos3 := newgrid.Surface[0][1] != &newcell3
+    pos4 := newgrid.Surface[1][1] != &newcell4
+
+    if pos1 || pos2 || pos3 || pos4 {
+        t.Errorf("Grid surface should contain the cells in correct order")
+    }
+}
+
 func TestCellCountIncreasesByOneByAddingACell(t *testing.T) {
     newgrid := NewGrid(1,1)
     newCell := cell.NewCell()
@@ -36,7 +58,7 @@ func TestCellCountIncreasesByOneByAddingACell(t *testing.T) {
 }
 
 func TestCellCountIncreasesByTwoByAddingTwoCells(t *testing.T) {
-    newgrid := NewGrid(1,1)
+    newgrid := NewGrid(1,2)
     newCell := cell.NewCell()
     newCell2 := cell.NewCell()
 

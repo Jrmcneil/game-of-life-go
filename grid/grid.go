@@ -23,7 +23,10 @@ func (grid *Grid) CellCount() int {
 }
 
 func (grid *Grid) AddCell(cell *cell.Cell) {
-    grid.Surface[grid.cells % grid.width][grid.cells % grid.height] = cell
+    width := grid.cells % grid.width
+    height := (grid.cells) / grid.width
+
+    grid.Surface[width][height] = cell
     grid.cells++
 }
 
