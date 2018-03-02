@@ -66,15 +66,12 @@ func TestCellsAreNotNeighborsByDefault(t *testing.T) {
 func TestCellCanIdentifyANeighbor(t *testing.T) {
     cell := NewCell()
     neighbor :=NewCell()
-    pointer := &neighbor
-    cell.AddNeighbor(pointer)
+    cell.AddNeighbor(&neighbor)
 
     if cell.HasNeighbor(&neighbor) != true && neighbor.HasNeighbor(&cell) != true {
         t.Errorf("Cells should be neighbors if added")
     }
-
 }
-
 
 func TestLiveCellWithNoLiveNeighborDies(t *testing.T) {
     helper(t, 0, true, false)

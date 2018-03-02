@@ -13,26 +13,37 @@ func TestGridIsEmptyByDefault(t *testing.T) {
     }
 }
 
+func TestAddingACellPutsItOnTheSurface(t *testing.T) {
+    newcell := cell.NewCell()
+    newgrid := NewGrid(1,1)
+
+    newgrid.AddCell(&newcell)
+
+    if newgrid.Surface[0][0] != &newcell {
+        t.Errorf("Grid surface should contain the cell")
+    }
+}
+
 func TestCellCountIncreasesByOneByAddingACell(t *testing.T) {
-    grid := Grid{}
+    newgrid := NewGrid(1,1)
     newCell := cell.NewCell()
 
-    grid.AddCell(&newCell)
+    newgrid.AddCell(&newCell)
 
-    if grid.CellCount() != 1 {
+    if newgrid.CellCount() != 1 {
         t.Errorf("Grid cell count should increase by one")
     }
 }
 
 func TestCellCountIncreasesByTwoByAddingTwoCells(t *testing.T) {
-    grid := Grid{}
+    newgrid := NewGrid(1,1)
     newCell := cell.NewCell()
     newCell2 := cell.NewCell()
 
-    grid.AddCell(&newCell)
-    grid.AddCell(&newCell2)
+    newgrid.AddCell(&newCell)
+    newgrid.AddCell(&newCell2)
 
-    if grid.CellCount() != 2 {
+    if newgrid.CellCount() != 2 {
         t.Errorf("Grid cell count should increase by two")
     }
 }
