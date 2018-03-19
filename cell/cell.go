@@ -42,7 +42,7 @@ func (cell *Cell) Live() {
     }
 }
 
-func NewCell() Cell {
-	return Cell{false, []*Cell {}}
+func NewCell() *Cell {
+	return new(Cell)
 }
 
