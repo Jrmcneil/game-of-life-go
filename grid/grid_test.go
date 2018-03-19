@@ -24,27 +24,7 @@ func TestAddingACellPutsItOnTheSurface(t *testing.T) {
     }
 }
 
-func TestCellsAreAddedAcrossThenDownTheSurface(t *testing.T) {
-    newcell1 := cell.NewCell()
-    newcell2 := cell.NewCell()
-    newcell3 := cell.NewCell()
-    newcell4 := cell.NewCell()
-    newgrid := NewGrid(2,2)
 
-    newgrid.AddCell(&newcell1)
-    newgrid.AddCell(&newcell2)
-    newgrid.AddCell(&newcell3)
-    newgrid.AddCell(&newcell4)
-
-    pos1 := newgrid.Surface[0][0] != &newcell1
-    pos2 := newgrid.Surface[1][0] != &newcell2
-    pos3 := newgrid.Surface[0][1] != &newcell3
-    pos4 := newgrid.Surface[1][1] != &newcell4
-
-    if pos1 || pos2 || pos3 || pos4 {
-        t.Errorf("Grid surface should contain the cells in correct order")
-    }
-}
 
 func TestCellCountIncreasesByOneByAddingACell(t *testing.T) {
     newgrid := NewGrid(1,1)
@@ -58,7 +38,7 @@ func TestCellCountIncreasesByOneByAddingACell(t *testing.T) {
 }
 
 func TestCellCountIncreasesByTwoByAddingTwoCells(t *testing.T) {
-    newgrid := NewGrid(1,2)
+    newgrid := NewGrid(2,1)
     newCell := cell.NewCell()
     newCell2 := cell.NewCell()
 
@@ -70,7 +50,50 @@ func TestCellCountIncreasesByTwoByAddingTwoCells(t *testing.T) {
     }
 }
 
-func TestSeedingAGridWithCellsAssignsTheirNeighbors(t *testing.T) {}
+//func TestCellsAreAddedAcrossThenDownTheSurface(t *testing.T) {
+//    newcell1 := cell.NewCell()
+//    newcell2 := cell.NewCell()
+//    newcell3 := cell.NewCell()
+//    newcell4 := cell.NewCell()
+//    newgrid := NewGrid(2,2)
+//
+//    newgrid.AddCell(&newcell1)
+//    newgrid.AddCell(&newcell2)
+//    newgrid.AddCell(&newcell3)
+//    newgrid.AddCell(&newcell4)
+//
+//    pos1 := newgrid.Surface[0][0] != &newcell1
+//    pos2 := newgrid.Surface[1][0] != &newcell2
+//    pos3 := newgrid.Surface[0][1] != &newcell3
+//    pos4 := newgrid.Surface[1][1] != &newcell4
+//
+//    if pos1 || pos2 || pos3 || pos4 {
+//        t.Errorf("Grid surface should contain the cells in correct order")
+//    }
+//}
+
+func TestAddingCellsNextToEachOtherAssignsThemAsNeighbors(t *testing.T) {
+    newgrid := NewGrid(3,1)
+    newCell := cell.NewCell()
+    newCell2 := cell.NewCell()
+    newCell3 := cell.NewCell()
+
+    newgrid.AddCell(&newCell)
+    newgrid.AddCell(&newCell2)
+    newgrid.AddCell(&newCell3)
+
+    if !newCell.HasNeighbor(&newCell2) || !newCell2.HasNeighbor(&newCell) {
+        t.Errorf("First and second cells should be neighbors")
+    }
+
+    if !newCell2.HasNeighbor(&newCell3) || !newCell2.HasNeighbor(&newCell3) {
+        t.Errorf("Second and third cells should be neighbors")
+    }
+
+    if newCell.HasNeighbor(&newCell3) || newCell3.HasNeighbor(&newCell) {
+        t.Errorf("First and third cells should be not neighbors")
+    }
+}
 
 
 

@@ -1,6 +1,8 @@
 package grid
 
-import "game-of-life-go/cell"
+import (
+    "game-of-life-go/cell"
+)
 
 type Grid struct {
     Surface [][] *cell.Cell
@@ -23,11 +25,15 @@ func (grid *Grid) CellCount() int {
 }
 
 func (grid *Grid) AddCell(cell *cell.Cell) {
-    width := grid.cells % grid.width
-    height := (grid.cells) / grid.width
+    width := grid.cells%(grid.width+1)
+    height := grid.cells / (grid.width + 1)
+    if width > 0 {
+        grid.Surface[width - 1][height].AddNeighbor(cell)
+    }
 
     grid.Surface[width][height] = cell
     grid.cells++
 }
+
 
 
