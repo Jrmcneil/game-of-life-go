@@ -25,8 +25,8 @@ func (grid *Grid) CellCount() int {
 }
 
 func (grid *Grid) AddCell(cell *cell.Cell) {
-    width := grid.cells%grid.width
-    height := grid.cells / (grid.width)
+    width := grid.cells % grid.width
+    height := grid.cells / grid.width
 
     if width > 0 {
         grid.Surface[width - 1][height].AddNeighbor(cell)
