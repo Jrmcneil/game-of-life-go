@@ -117,5 +117,20 @@ func TestAddingCellsAboveEachOtherAssignsThemAsNeighbors(t *testing.T) {
     }
 }
 
+func TestCellsAddedDiagonalToEachOtherAreNotNeighbors(t *testing.T) {
+    newgrid := NewGrid(2,2)
+    newCell := cell.NewCell()
+    newCell2 := cell.NewCell()
+    newCell3 := cell.NewCell()
+    newCell4 := cell.NewCell()
 
+    newgrid.AddCell(newCell)
+    newgrid.AddCell(newCell2)
+    newgrid.AddCell(newCell3)
+    newgrid.AddCell(newCell4)
+
+    if newCell.HasNeighbor(newCell4) || newCell4.HasNeighbor(newCell) || newCell2.HasNeighbor(newCell3) || newCell3.HasNeighbor(newCell2) {
+        t.Errorf("Diagonal cells should not be neighbors")
+    }
+}
 
