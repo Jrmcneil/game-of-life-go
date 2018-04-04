@@ -40,5 +40,13 @@ func (grid *Grid) AddCell(cell *cell.Cell) {
     grid.cells++
 }
 
+func (grid *Grid) Fill() {
+    cells := grid.width * grid.height
+
+    for i := 0; i < cells; i++ {
+        grid.AddCell(cell.NewCell())
+    }
+}
+
 
 
