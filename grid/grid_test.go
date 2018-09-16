@@ -138,7 +138,7 @@ func TestFillingGridWithCells(t *testing.T) {
     newgrid := NewGrid(10, 10)
     newgrid.Fill()
 
-    if newgrid.cells != 100 {
+    if newgrid.GetCells() != 100 {
         t.Errorf("Grid should have 100 cells")
     }
 }
