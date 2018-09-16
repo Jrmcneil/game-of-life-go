@@ -3,8 +3,8 @@ package cell
 type Cell struct {
     IsAlive   bool
     neighbors NeigbhorSet
-    life      chan bool
-    pulse     chan bool
+    Life      chan bool
+    Pulse     chan bool
 }
 
 type NeigbhorSet struct {
@@ -21,7 +21,7 @@ func (neighbors *NeigbhorSet) Has(cell *Cell) bool {
     return found
 }
 
-func (cell *Cell) resurrect() {
+func (cell *Cell) Resurrect() {
     cell.IsAlive = true
 }
 
@@ -50,19 +50,19 @@ func (cell *Cell) live() {
     switch {
     case cell.IsAlive && (liveNeighbors <= 1 || liveNeighbors > 3):
         cell.kill()
-        cell.pulse <- false
+        cell.Pulse <- false
     case !cell.IsAlive && liveNeighbors == 3:
-        cell.resurrect()
-        cell.pulse <- true
+        cell.Resurrect()
+        cell.Pulse <- true
     default:
-        cell.pulse <- cell.IsAlive
+        cell.Pulse <- cell.IsAlive
     }
 }
 
 func waitForLife(cell *Cell) {
     for {
         select {
-        case <-cell.life:
+        case <-cell.Life:
             cell.live()
         }
     }
@@ -70,8 +70,8 @@ func waitForLife(cell *Cell) {
 
 func NewCell() *Cell {
     cell := new(Cell)
-    cell.life = make(chan bool)
-    cell.pulse = make(chan bool, 1)
+    cell.Life = make(chan bool)
+    cell.Pulse = make(chan bool, 1)
     cell.neighbors.set = make(map[*Cell]bool)
     go waitForLife(cell)
     return cell

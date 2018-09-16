@@ -8,7 +8,7 @@ import (
 func TestCellCanBeAlive(t *testing.T) {
 	cell := NewCell()
 
-    cell.resurrect()
+    cell.Resurrect()
 
 	if cell.IsAlive != true {
 		t.Errorf("Cell is not alive")
@@ -126,17 +126,17 @@ func TestDeadCellWithMoreThanThreeLiveNeighborsStaysDead(t *testing.T) {
 
 func helper(t *testing.T, neighbors int, isAlive bool, shouldLive bool) {
     cell := NewCell()
-    if isAlive {cell.resurrect()}
+    if isAlive {cell.Resurrect()}
     var neighborCount int
     for i := 0; i < neighbors;  i++ {
         neighborCount = i + 1
         neighbor := NewCell()
         cell.AddNeighbor(neighbor)
-        neighbor.resurrect()
+        neighbor.Resurrect()
     }
 
-    cell.life <- true
-    pulse := <- cell.pulse
+    cell.Life <- true
+    pulse := <- cell.Pulse
 
     var originalStatus string
 
