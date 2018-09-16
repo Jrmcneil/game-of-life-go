@@ -12,9 +12,8 @@ type NeigbhorSet struct {
 }
 
 func (neighbors *NeigbhorSet) Add(cell *Cell) bool {
-    _, found := neighbors.set[cell]
-    neighbors.set[cell] = true
-    return !found
+    defer func() {neighbors.set[cell] = true}()
+    return !neighbors.Has(cell)
 }
 
 func (neighbors *NeigbhorSet) Has(cell *Cell) bool {
