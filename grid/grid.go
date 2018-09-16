@@ -5,14 +5,14 @@ import (
 )
 
 type Grid struct {
-    Surface [][] *cell.Cell
-    cells   int
+    Surface [][]*cell.Cell
+    List    []*cell.Cell
     width   int
     height  int
 }
 
-func (grid *Grid) GetCells() int {
-    return grid.cells
+func (grid *Grid) CellCount() int {
+    return len(grid.List)
 }
 
 func (grid *Grid) GetHeight() int {
@@ -29,16 +29,19 @@ func NewGrid(width, height int) *Grid {
         surface[i] = make([]*cell.Cell, height)
     }
 
-    return &Grid{Surface: surface, width: width, height: width}
-}
+    list := make([]*cell.Cell, 0, width * height)
+    grid := new(Grid)
+    grid.Surface = surface
+    grid.List = list
+    grid.height = height
+    grid.width = width
 
-func (grid *Grid) CellCount() int {
-    return grid.cells
+    return grid
 }
 
 func (grid *Grid) AddCell(cell *cell.Cell) {
-    width := grid.cells % grid.width
-    height := grid.cells / grid.width
+    width := grid.CellCount() % grid.width
+    height := grid.CellCount() / grid.width
 
     if width > 0 {
         grid.Surface[width - 1][height].AddNeighbor(cell)
@@ -49,7 +52,7 @@ func (grid *Grid) AddCell(cell *cell.Cell) {
     }
 
     grid.Surface[width][height] = cell
-    grid.cells++
+    grid.List = append(grid.List, cell)
 }
 
 func (grid *Grid) Fill() {
