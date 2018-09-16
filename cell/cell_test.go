@@ -26,7 +26,7 @@ func TestCellIsNotAliveByDefault(t *testing.T) {
 func TestCellHasNoNeighborByDefault(t *testing.T) {
     cell := NewCell()
 
-    if len(cell.neighbors) != 0 {
+    if len(cell.neighbors.set) != 0 {
         t.Errorf("Cell should have no neighbors by default")
     }
 }
@@ -39,8 +39,8 @@ func TestCellCanHaveNeighbors(t *testing.T) {
         neighbor :=NewCell()
         cell.AddNeighbor(neighbor)
     }
-    if len(cell.neighbors) != neighborCount  {
-        t.Errorf("Cell should have %d neighbors but has %d", neighborCount, len(cell.neighbors))
+    if len(cell.neighbors.set) != neighborCount  {
+        t.Errorf("Cell should have %d neighbors but has %d", neighborCount, len(cell.neighbors.set))
     }
 }
 
@@ -49,7 +49,7 @@ func TestCellNeighborHasCellAsNeighbor(t *testing.T) {
     neighbor :=NewCell()
     cell.AddNeighbor(neighbor)
 
-    if len(neighbor.neighbors) != 1  {
+    if len(neighbor.neighbors.set) != 1  {
         t.Errorf("Neighbor should have one neighbor if cell adds it as a neighbor")
     }
 }
@@ -70,6 +70,17 @@ func TestCellCanIdentifyANeighbor(t *testing.T) {
 
     if cell.HasNeighbor(neighbor) != true && neighbor.HasNeighbor(cell) != true {
         t.Errorf("Cells should be neighbors if added")
+    }
+}
+
+func TestCellNeighborAddingCellDoesNotIncreaseNeighbors(t *testing.T) {
+    cell := NewCell()
+    neighbor :=NewCell()
+    cell.AddNeighbor(neighbor)
+    neighbor.AddNeighbor(cell)
+
+    if len(cell.neighbors.set) != 1 && len(neighbor.neighbors.set) != 1 {
+        t.Errorf("Adding a current neighbor should not increase neighbors")
     }
 }
 
