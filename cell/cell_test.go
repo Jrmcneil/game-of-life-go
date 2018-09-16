@@ -119,13 +119,13 @@ func helper(t *testing.T, neighbors int, isAlive bool, shouldLive bool) {
     var neighborCount int
     for i := 0; i < neighbors;  i++ {
         neighborCount = i + 1
-        neighbor :=NewCell()
+        neighbor := NewCell()
         cell.AddNeighbor(neighbor)
         neighbor.resurrect()
     }
 
     cell.life <- true
-    <- cell.pulse
+    pulse := <- cell.pulse
 
     var originalStatus string
 
@@ -143,7 +143,7 @@ func helper(t *testing.T, neighbors int, isAlive bool, shouldLive bool) {
         finalStatus = "dead"
     }
 
-    if cell.IsAlive != shouldLive {
+    if cell.IsAlive != shouldLive || pulse != shouldLive {
         t.Errorf("%s cell has %d neighbors so should be %s", originalStatus, neighborCount, finalStatus)
     }
 }

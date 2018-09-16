@@ -12,6 +12,10 @@ func (cell *Cell) resurrect() {
     cell.IsAlive = true
 }
 
+func (cell *Cell) kill() {
+    cell.IsAlive = false
+}
+
 func (cell *Cell) AddNeighbor(neighbor *Cell) {
     cell.neighbors = append(cell.neighbors, neighbor)
     neighbor.neighbors = append(neighbor.neighbors, cell)
@@ -38,13 +42,13 @@ func (cell *Cell) live() {
 
     switch {
     case cell.IsAlive && (liveNeighbors <= 1 || liveNeighbors > 3):
-        cell.IsAlive = false
-        cell.pulse <- true
+        cell.kill()
+        cell.pulse <- false
     case cell.IsAlive == false && liveNeighbors == 3:
         cell.resurrect()
         cell.pulse <- true
     default:
-        cell.pulse <- true
+        cell.pulse <- cell.IsAlive
     }
 }
 
