@@ -1,8 +1,11 @@
 package cell
 
 type Cell struct {
-	IsAlive bool
-	neighbors []*Cell
+    id        int
+    IsAlive   bool
+    neighbors []*Cell
+    life      chan bool
+    pulse     chan bool
 }
 
 func (cell *Cell) resurrect() {
@@ -24,7 +27,7 @@ func (cell *Cell) HasNeighbor(neighbor *Cell) bool {
     return false
 }
 
-func (cell *Cell) Live() {
+func (cell *Cell) live() {
     var liveNeighbors int
 
     for _, c := range cell.neighbors {
@@ -40,9 +43,23 @@ func (cell *Cell) Live() {
     if cell.IsAlive == false && liveNeighbors == 3 {
         cell.resurrect()
     }
+
+    cell.pulse <- true
+}
+
+func waitForLife(cell *Cell) {
+    for {
+        select {
+        case <-cell.life:
+            cell.live()
+        }
+    }
 }
 
 func NewCell() *Cell {
-	return new(Cell)
+    cell := new(Cell)
+    cell.life = make(chan bool)
+    cell.pulse = make(chan bool, 1)
+    go waitForLife(cell)
+    return cell
 }
-

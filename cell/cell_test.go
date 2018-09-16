@@ -126,7 +126,8 @@ func helper(t *testing.T, neighbors int, isAlive bool, shouldLive bool) {
         neighbor.resurrect()
     }
 
-    cell.Live()
+    cell.life <- true
+    <- cell.pulse
 
     var originalStatus string
 
