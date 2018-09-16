@@ -2,6 +2,8 @@ package grid
 
 import (
     "game-of-life-go/cell"
+    "math/rand"
+    "time"
 )
 
 type Grid struct {
@@ -60,6 +62,16 @@ func (grid *Grid) Fill() {
 
     for i := 0; i < cells; i++ {
         grid.AddCell(cell.NewCell())
+    }
+}
+
+func (grid *Grid) RandomSeedByPercentage(percentage int) {
+    rand.Seed(time.Now().UTC().UnixNano())
+    for _, cell := range grid.List {
+        random := rand.Intn(100)
+        if random < percentage {
+            cell.Resurrect()
+        }
     }
 }
 
