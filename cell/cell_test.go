@@ -93,8 +93,6 @@ func TestLiveCellWithFourLiveNeighborsDies(t *testing.T) {
     helper(t, 4, true, false)
 }
 
-func TestLiveCellWithMoreThanThreeLiveNeighborsDies(t *testing.T) {}
-
 func TestDeadCellWithNoLiveNeighborsStaysDead(t *testing.T) {
     helper(t, 0, false, false)
 }

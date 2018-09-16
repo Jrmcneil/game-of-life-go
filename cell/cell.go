@@ -36,15 +36,16 @@ func (cell *Cell) live() {
         }
     }
 
-    if cell.IsAlive && (liveNeighbors <= 1 || liveNeighbors > 3) {
+    switch {
+    case cell.IsAlive && (liveNeighbors <= 1 || liveNeighbors > 3):
         cell.IsAlive = false
-    }
-
-    if cell.IsAlive == false && liveNeighbors == 3 {
+        cell.pulse <- true
+    case cell.IsAlive == false && liveNeighbors == 3:
         cell.resurrect()
+        cell.pulse <- true
+    default:
+        cell.pulse <- true
     }
-
-    cell.pulse <- true
 }
 
 func waitForLife(cell *Cell) {
