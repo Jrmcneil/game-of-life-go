@@ -10,7 +10,7 @@ func TestCellCanBeAlive(t *testing.T) {
 
     cell.Resurrect()
 
-	if cell.IsAlive != true {
+	if cell.isAlive() != true {
 		t.Errorf("Cell is not alive")
 	}
 }
@@ -18,7 +18,7 @@ func TestCellCanBeAlive(t *testing.T) {
 func TestCellIsNotAliveByDefault(t *testing.T) {
     cell := NewCell()
 
-    if cell.IsAlive != false {
+    if cell.isAlive() != false {
         t.Errorf("Cell is not dead")
     }
 }
@@ -154,7 +154,7 @@ func helper(t *testing.T, neighbors int, isAlive bool, shouldLive bool) {
         finalStatus = "dead"
     }
 
-    if cell.IsAlive != shouldLive || pulse != shouldLive {
+    if cell.isAlive() != shouldLive || pulse != shouldLive {
         t.Errorf("%s cell has %d neighbors so should be %s", originalStatus, neighborCount, finalStatus)
     }
 }

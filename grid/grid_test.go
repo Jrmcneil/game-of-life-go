@@ -144,17 +144,6 @@ func TestFillingGridWithCells(t *testing.T) {
 }
 
 func TestRandomSeedLiveCells(t *testing.T) {
-    newgrid := NewGrid(10, 10)
-    newgrid.Fill()
-    newgrid.RandomSeedByPercentage(20)
-
-    var liveCells int
-
-    for _, c := range newgrid.List {
-        if c.IsAlive {
-            liveCells ++
-        }
-    }
 
     //TODO: Go find a stats library and test the distribution properly
 }

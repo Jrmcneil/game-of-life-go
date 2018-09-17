@@ -1,7 +1,7 @@
 package cell
 
 type Cell struct {
-    IsAlive   bool
+    alive   bool
     neighbors NeigbhorSet
     Life      chan bool
     Pulse     chan bool
@@ -21,12 +21,16 @@ func (neighbors *NeigbhorSet) Has(cell *Cell) bool {
     return found
 }
 
+func (cell *Cell) isAlive() bool {
+    return cell.alive
+}
+
 func (cell *Cell) Resurrect() {
-    cell.IsAlive = true
+    cell.alive = true
 }
 
 func (cell *Cell) kill() {
-    cell.IsAlive = false
+    cell.alive = false
 }
 
 func (cell *Cell) AddNeighbor(neighbor *Cell) {
@@ -42,20 +46,20 @@ func (cell *Cell) live() {
     var liveNeighbors int
 
     for c := range cell.neighbors.set {
-        if c.IsAlive {
+        if c.isAlive() {
             liveNeighbors++
         }
     }
 
     switch {
-    case cell.IsAlive && (liveNeighbors <= 1 || liveNeighbors > 3):
+    case cell.isAlive() && (liveNeighbors <= 1 || liveNeighbors > 3):
         cell.kill()
         cell.Pulse <- false
-    case !cell.IsAlive && liveNeighbors == 3:
+    case !cell.isAlive() && liveNeighbors == 3:
         cell.Resurrect()
         cell.Pulse <- true
     default:
-        cell.Pulse <- cell.IsAlive
+        cell.Pulse <- cell.isAlive()
     }
 }
 
